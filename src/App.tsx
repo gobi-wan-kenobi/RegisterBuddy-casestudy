@@ -13,7 +13,7 @@ import {
   type Room,
 } from './data'
 
-type Tab = 'overview' | 'board' | 'inventory' | 'export'
+type Tab = 'overview' | 'board' | 'inventory' | 'export' | 'roadmap'
 type DismissReason = 'Wrong' | 'Already knew' | 'Not actionable' | "Don't trust"
 
 const DISMISS_REASONS: DismissReason[] = [
@@ -141,6 +141,7 @@ export default function App() {
             ['board', 'Plan board'],
             ['inventory', 'Inventory'],
             ['export', 'Export'],
+            ['roadmap', 'Roadmap'],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -169,6 +170,7 @@ export default function App() {
         {tab === 'export' && (
           <ExportPanel onExport={exportCsv} appliedReaderFix={appliedReaderFix} />
         )}
+        {tab === 'roadmap' && <Roadmap />}
       </main>
 
       {activeAlert && (
@@ -515,3 +517,121 @@ function ExportPanel({
     </div>
   )
 }
+
+function Roadmap() {
+  const phases = [
+    {
+      id: '0',
+      title: 'Phase 0 — Validate',
+      status: 'Gate',
+      intent: 'CEO feature request → pressure-test real pain + retention/growth path',
+      ships: 'Discovery, named-account evidence, go/no-go (not a product ship)',
+      success: [
+        'Winning problem letter (exports vs forecast vs allocation vs day-of vs budget)',
+        'Commercial path: retention risk and/or Essentials/expand lever',
+      ],
+      kill: 'No commercial path → defer; day-of/budget-only → separate thin bet',
+    },
+    {
+      id: '1',
+      title: 'Phase 1 — Finals Pack',
+      status: 'Learn cheap',
+      intent: 'Is value mostly getting data out of RB?',
+      ships: 'Surge exports, saved views, Excel/Google template, optional dean snapshot',
+      success: [
+        '↓ ≥30% time to assemble finals plan pack',
+        '↓ “can’t get data” CS tickets in partner cohort',
+        'Track % still needing heavy custom Excel',
+      ],
+      kill: 'Pack alone satisfies + no deeper commercial story → stop before AI service',
+    },
+    {
+      id: '2',
+      title: 'Phase 2 — Projection + alerts',
+      status: 'In this prototype',
+      intent: 'Does trusted early visibility change decisions? (CEO-shaped, trust-first)',
+      ships: 'Inventory, rules/seasonality projection, over/under alerts, Why, confirm',
+      success: [
+        'Alert action rate clears partner floor',
+        '↓ planning hours vs Phase 1 baseline',
+        '↓ over/under incidents (or proxies)',
+      ],
+      kill: 'Ignored alerts, trust collapse, or no behavior change',
+    },
+    {
+      id: '3',
+      title: 'Phase 3 — Allocation workspace',
+      status: 'In this prototype',
+      intent: 'Does placing constrained resources retire Excel?',
+      ships: 'Plan board, accommodation constraints, suggested remedies + confirm, export escape',
+      success: [
+        'Primary plan lives in RB for design partners',
+        '↑ feasible plans before week-of',
+        '↓ accommodation shortfalls; ↓ planning exports',
+      ],
+      kill: 'Excel still canonical; ADA trust incidents; no keep/expand narrative',
+    },
+    {
+      id: '4',
+      title: 'Phase 4 — Optimize + Capacity Pro',
+      status: 'Only if lift',
+      intent: 'ML/monetization only after baseline earns trust',
+      ships: 'Models that beat Phase 2 baseline, multi-site, paid ladder',
+      success: [
+        'Measured lift vs rules baseline',
+        'Paid attach / NDR evidence',
+        'No regression on trust counters',
+      ],
+      kill: 'No lift over baseline → stay on Phase 2–3; no showcase ML',
+    },
+  ]
+
+  return (
+    <div className="roadmap">
+      <section className="panel">
+        <div className="panel-title">Phased plan</div>
+        <p className="roadmap-lead">
+          CEO ask = feature request to pressure-test. Each phase has success metrics and a kill
+          gate before we add surface area. This UI demos Phase 2–3; written plan still requires
+          Phase 0–1 gates first.
+        </p>
+        <div className="phase-flow">
+          {['0 Validate', '1 Finals Pack', '2 Alerts', '3 Allocation', '4 Optimize'].map((s, i) => (
+            <span key={s} className="phase-chip">
+              {i > 0 && <span className="phase-arrow">→</span>}
+              {s}
+            </span>
+          ))}
+        </div>
+      </section>
+      {phases.map((p) => (
+        <section key={p.id} className={`panel phase-card phase-${p.id}`}>
+          <div className="phase-head">
+            <h3>{p.title}</h3>
+            <span className="phase-status">{p.status}</span>
+          </div>
+          <p className="phase-intent">{p.intent}</p>
+          <div className="phase-grid">
+            <div>
+              <div className="phase-label">Ships</div>
+              <p>{p.ships}</p>
+            </div>
+            <div>
+              <div className="phase-label">Success metrics</div>
+              <ul>
+                {p.success.map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <div className="phase-label">Kill / pivot</div>
+              <p>{p.kill}</p>
+            </div>
+          </div>
+        </section>
+      ))}
+    </div>
+  )
+}
+

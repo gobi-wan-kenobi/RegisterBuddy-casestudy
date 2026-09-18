@@ -31,3 +31,8 @@ Vite `base` is set to `/RegisterBuddy-casestudy/`.
 ## Note
 
 Interview artifact only.
+
+
+## Phased roadmap
+
+See [PHASED_ROADMAP.md](./PHASED_ROADMAP.md) — CEO feature request pressure-tested across Phase 0–4 with success/kill metrics. In-app **Roadmap** tab summarizes the same plan.

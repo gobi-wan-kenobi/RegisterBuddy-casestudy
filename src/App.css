@@ -190,3 +190,21 @@ body { margin: 0; background: var(--bg); }
   .cards { grid-template-columns: 1fr; }
   .topbar { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
+
+.roadmap-lead { color: var(--muted); max-width: 70ch; margin: 0 0 12px; font-size: 14px; }
+.phase-flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.phase-chip { font-size: 12px; font-weight: 650; color: var(--brand); background: var(--brand-soft); padding: 4px 8px; border-radius: 999px; }
+.phase-arrow { margin-right: 6px; color: var(--muted); font-weight: 400; }
+.phase-card h3 { margin: 0; font-size: 16px; }
+.phase-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.phase-status { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: #e2e8f0; color: #334155; }
+.phase-2 .phase-status, .phase-3 .phase-status { background: #dcfce7; color: #166534; }
+.phase-4 .phase-status { background: #ffedd5; color: #9a3412; }
+.phase-intent { margin: 0 0 12px; font-weight: 600; font-size: 14px; }
+.phase-grid { display: grid; grid-template-columns: 1.2fr 1.4fr 1fr; gap: 12px; }
+.phase-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; margin-bottom: 4px; }
+.phase-grid p, .phase-grid ul { margin: 0; font-size: 13px; color: var(--ink); }
+.phase-grid ul { padding-left: 16px; display: grid; gap: 4px; }
+@media (max-width: 900px) {
+  .phase-grid { grid-template-columns: 1fr; }
+}
